@@ -1,12 +1,9 @@
 language: java
-dist: focal
-jdk: 15
+install: skip
 
-notifications:
-  email: true
-
-install:
-  - gradle wrapper
+os: linux
+dist: trusty
+jdk: oraclejdk8
 
 script:
   - ./gradlew build --scan -s
