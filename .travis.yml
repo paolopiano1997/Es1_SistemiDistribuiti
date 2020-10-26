@@ -1,9 +1,9 @@
 language: java
 dist: focal
-jdk: openjdk11
+jdk: 15
 
 notifications:
-  email: false
+  email: true
 
 install:
   - gradle wrapper
