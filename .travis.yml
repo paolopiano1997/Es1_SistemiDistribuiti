@@ -4,9 +4,6 @@ install: skip
 os: linux
 dist: trusty
 jdk: oraclejdk8
-
-install:
-  - gradlew
   
 before_install:
  - chmod +x gradlew
