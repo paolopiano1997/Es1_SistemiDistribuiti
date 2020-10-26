@@ -10,5 +10,5 @@ before_install:
  - chmod +x gradlew
 
 script:
-  - ./gradlew assemble
-  - ./gradlew check 
+  - gradle assemble
+  - gradle check 
