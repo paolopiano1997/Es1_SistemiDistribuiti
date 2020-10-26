@@ -1,0 +1,13 @@
+language: java
+dist: focal
+jdk: openjdk11
+
+notifications:
+  email: false
+
+install:
+  - gradle wrapper
+
+script:
+  - ./gradlew assemble
+  - ./gradlew check
