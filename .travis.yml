@@ -1,13 +1,11 @@
 language: java
 install:
-  - gradle wrapper
+  - gradle
 
 os: linux
 dist: trusty
 jdk: oraclejdk8
-  
-before_install:
- - chmod +x gradlew
+
 
 script:
   - gradle assemble
