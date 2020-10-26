@@ -9,5 +9,4 @@ install:
   - gradle wrapper
 
 script:
-  - ./gradlew assemble
-  - ./gradlew check
+  - ./gradlew build --scan -s
