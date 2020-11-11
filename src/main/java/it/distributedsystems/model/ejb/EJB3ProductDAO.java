@@ -7,11 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.ejb.Local;
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import javax.ejb.*;
 import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +22,7 @@ public class EJB3ProductDAO implements ProductDAO {
     @PersistenceContext(unitName = "distributed-systems-demo")
     EntityManager em;
 
+    //@EJB LoggingBean logger;
 
     @Override
 //    @Interceptors(OperationLogger.class)
@@ -36,7 +33,7 @@ public class EJB3ProductDAO implements ProductDAO {
             product.setProducer(em.merge(product.getProducer()));
 
         em.persist(product);
-
+        //logger.sendMessage("Product inserted into DB: id=" + product.getId() + ", name=" + product.getName());
         return product.getId();
     }
 
@@ -54,6 +51,7 @@ public class EJB3ProductDAO implements ProductDAO {
 
             em.remove(product);
 
+            //logger.sendMessage("Product with number " + productNumber + " removed from DB");
             return id;
         }
         else
@@ -70,7 +68,7 @@ public class EJB3ProductDAO implements ProductDAO {
             em.createNativeQuery("DELETE FROM Purchase_Product WHERE product_id="+product.getId()+" ;").executeUpdate();
 
             em.remove(product);
-
+           // logger.sendMessage("Product with id " + id + " removed from DB");
             return id;
         }
         else

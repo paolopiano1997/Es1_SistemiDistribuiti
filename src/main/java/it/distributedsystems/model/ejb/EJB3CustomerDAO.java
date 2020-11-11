@@ -18,11 +18,14 @@ public class EJB3CustomerDAO implements CustomerDAO {
     @PersistenceContext(unitName = "distributed-systems-demo")
     EntityManager em;
 
+    //@EJB LoggingBean logger;
+
     @Override
 //    @Interceptors(OperationLogger.class)
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public int insertCustomer(Customer customer) {
         em.persist(customer);
+        //logger.sendMessage("Customer added into DB, id=" + customer.getId() + ", name=" + customer.getName());
         return customer.getId();
     }
 
@@ -34,6 +37,7 @@ public class EJB3CustomerDAO implements CustomerDAO {
         if(name != null && !name.equals("")) {
             customer = (Customer) em.createQuery("FROM Customer c WHERE c.name = :customerName").setParameter("customerName", name).getSingleResult();
             em.remove(customer);
+            //logger.sendMessage("Customer with name " + name + " removed from DB");
             return customer.getId();
         } else
             return 0;
@@ -45,6 +49,7 @@ public class EJB3CustomerDAO implements CustomerDAO {
         Customer customer = em.find(Customer.class, id);
         if (customer!=null){
             em.remove(customer);
+            //logger.sendMessage("Customer with id " + id + " removed from DB");
             return id;
         }
         else

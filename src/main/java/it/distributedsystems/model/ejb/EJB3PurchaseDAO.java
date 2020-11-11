@@ -10,11 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.ejb.Local;
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import javax.ejb.*;
 import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,6 +24,8 @@ import javax.persistence.PersistenceContext;
 
     @PersistenceContext(unitName = "distributed-systems-demo")
     EntityManager em;
+
+    //@EJB LoggingBean logger;
 
 //    @Interceptors(OperationLogger.class)
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -49,6 +47,7 @@ import javax.persistence.PersistenceContext;
         }
 
         em.persist(purchase);
+        //logger.sendMessage("Purchase inserted into DB: num=" + purchase.getPurchaseNumber() + ", customer=" + purchase.getCustomer());
         return purchase.getId();
     }
 
@@ -83,6 +82,7 @@ import javax.persistence.PersistenceContext;
 
             em.remove(purchase);
 
+            //logger.sendMessage("Purchase with id " + id + " removed from DB");
             return id;
         }
         else

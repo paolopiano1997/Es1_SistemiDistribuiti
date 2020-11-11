@@ -7,7 +7,7 @@
              version="2.0">
     <persistence-unit name="distributed-systems-demo" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>java:/MySqlDS</jta-data-source>
+       <jta-data-source>java:/MySqlDS</jta-data-source>
         <!--        <mapping-file>META-INF/orm.xml</mapping-file>-->
         <!--        <jar-file></jar-file>-->
         <class>it.distributedsystems.model.dao.Product</class>

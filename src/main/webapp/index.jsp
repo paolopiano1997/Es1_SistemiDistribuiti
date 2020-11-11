@@ -50,6 +50,7 @@
 
 <body>
 
+	<jsp:useBean id="logger" class="it.distributedsystems.model.ejb.LoggingBean" scope="application" />
 <%
 	// can't use builtin object 'application' while in a declaration!
 	// must be in a scriptlet or expression!
@@ -60,20 +61,24 @@
 	ProducerDAO producerDAO = daoFactory.getProducerDAO();
 	String operation = request.getParameter("operation");
 	if ( operation != null && operation.equals("insertCustomer") ) {
+
 		Customer customer = new Customer();
 		customer.setName( request.getParameter("name") );
+		logger.sendMessage("Inserted Customer with name " + customer.getName());
 		int id = customerDAO.insertCustomer( customer );
 		out.println("<!-- inserted customer '" + customer.getName() + "', with id = '" + id + "' -->");
 	}
 	else if ( operation != null && operation.equals("insertProducer") ) {
 		Producer producer = new Producer();
 		producer.setName( request.getParameter("name") );
+		logger.sendMessage("Inserted Producer with name " + producer.getName());
 		int id = producerDAO.insertProducer( producer );
 		out.println("<!-- inserted producer '" + producer.getName() + "', with id = '" + id + "' -->");
 	}
 	else if ( operation != null && operation.equals("insertProduct") ) {
 		Product product = new Product();
 		product.setName( request.getParameter("name") );
+		logger.sendMessage("Inserted Product with name " + product.getName());
 		product.setProductNumber(Integer.parseInt(request.getParameter("number")));
 		product.setPrice(Integer.parseInt(request.getParameter("price")));
 		String par = request.getParameter("producer");

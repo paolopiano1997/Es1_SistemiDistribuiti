@@ -20,11 +20,14 @@ public class EJB3ProducerDAO implements ProducerDAO {
     @PersistenceContext(unitName = "distributed-systems-demo")
     EntityManager em;
 
+   // @EJB LoggingBean logger;
+
     @Override
 //    @Interceptors(OperationLogger.class)
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public int insertProducer(Producer producer) {
         em.persist(producer);
+        //logger.sendMessage("Producer inserted into DB, id=" + producer.getId() + ", name=" + producer.getName());
         return producer.getId();
     }
 
@@ -38,6 +41,7 @@ public class EJB3ProducerDAO implements ProducerDAO {
                     .setParameter("producerName", name)
                     .getSingleResult();
             em.remove(producer);
+           // logger.sendMessage("Producer with name " + name + " removed from DB");
             return producer.getId();
         } else
             return 0;
@@ -49,6 +53,7 @@ public class EJB3ProducerDAO implements ProducerDAO {
         Producer producer = em.find(Producer.class, id);
         if (producer!=null){
             em.remove(producer);
+            //logger.sendMessage("Producer with id " + id + " removed from DB");
             return id;
         }
         else
