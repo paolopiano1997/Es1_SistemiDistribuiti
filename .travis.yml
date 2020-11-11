@@ -1,13 +1,12 @@
 language: java
-dist: focal
-jdk: openjdk11
-
-notifications:
-  email: false
-
 install:
-  - gradle wrapper
+  - gradle
+
+os: linux
+dist: trusty
+jdk: oraclejdk8
+
 
 script:
-  - ./gradlew assemble
-  - ./gradlew check
+  - gradle assemble
+  - gradle check 
